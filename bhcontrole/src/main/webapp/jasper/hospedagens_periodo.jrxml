@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hospedagens_periodo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec1dd00a-5a2d-4c30-9627-81cd77545f70">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="DATA_INICIAL" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_FINAL" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_URL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     data_entrada AS DATA_ENTRADA,
+     DATA_SAIDA AS DATA_SAIDA,
+     VALOR_DIARIA AS VALOR_DIARIA,
+     NOME AS NOME,
+     CPF AS CPF
+FROM
+     hospedagem h INNER JOIN HOSPEDAGEM_CLIENTE HC ON h.id = HC.ID_HOSPEDAGEM
+     INNER JOIN CLIENTE C ON HC.ID_CLIENTE = C.id
+WHERE
+     h.data_entrada BETWEEN $P{DATA_INICIAL} AND $P{DATA_FINAL}
+ORDER BY
+     C.NOME ASC,
+     h.DATA_ENTRADA ASC]]>
+	</queryString>
+	<field name="DATA_ENTRADA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_SAIDA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VALOR_DIARIA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="VALOR_DIARIA_1" class="java.math.BigDecimal" resetType="Group" resetGroup="NOME" calculation="Sum">
+		<variableExpression><![CDATA[$F{VALOR_DIARIA}]]></variableExpression>
+	</variable>
+	<variable name="VALOR_DIARIA_2" class="java.math.BigDecimal" resetType="Group" resetGroup="DATA ENTRADA" calculation="Sum">
+		<variableExpression><![CDATA[$F{VALOR_DIARIA}]]></variableExpression>
+	</variable>
+	<variable name="VALOR_DIARIA_3" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{VALOR_DIARIA}]]></variableExpression>
+	</variable>
+	<group name="NOME">
+		<groupExpression><![CDATA[$F{NOME}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="b3748881-891d-4665-8f2b-1beddb74cb7a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[("Cliente: " + $F{NOME} + "     CPF: " + $F{CPF}).toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="370" y="0" width="185" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="7fb24d4e-edcc-4392-b14a-84f84937ca7c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{VALOR_DIARIA_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="370" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="66e3ab9c-9567-4880-b521-13295ffcf295"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DATA ENTRADA">
+		<groupExpression><![CDATA[$F{DATA_ENTRADA}.getMonth()]]></groupExpression>
+		<groupFooter>
+			<band height="22">
+				<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="370" y="0" width="185" height="22" forecolor="#FFFFFF" backcolor="#CC0000" uuid="62a607de-27bc-4d34-b879-5d0ac90cba45"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{VALOR_DIARIA_2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="0" y="0" width="370" height="22" forecolor="#FFFFFF" backcolor="#CC0000" uuid="71c9bd57-e2ce-44c8-810d-234c4184168d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("MM/yyyy").format($F{DATA_ENTRADA})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="135" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#CC0000" uuid="2d4e4ccd-35b1-4397-85e1-735494c86e65"/>
+				<textField>
+					<reportElement x="359" y="31" width="215" height="15" forecolor="#FFFFFF" uuid="4e61173f-27ac-4a36-8655-1638637087ea"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Banabuiú - CE, CEP 63960-000"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="48" width="215" height="14" forecolor="#FFFFFF" uuid="4147600f-8721-40e3-8bd8-32efc5216456"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Fixo: (88) 3426-1728"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="63" width="215" height="16" forecolor="#FFFFFF" uuid="125d827b-1830-4131-b36c-19444514ab44"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["E-mail: contato@bacanahotel.com"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="15" width="215" height="15" forecolor="#FFFFFF" uuid="bae77baa-3332-47bd-94d5-bf16ec28b8f6"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Rua Juscelino Kubitschek 151, Centro"]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="21" y="9" width="166" height="77" uuid="bc6fbfac-e691-4bfe-acce-cd0f792f269e"/>
+					<imageExpression><![CDATA[$P{LOGO_URL}]]></imageExpression>
+				</image>
+			</frame>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="72" width="552" height="61" uuid="939e7b69-abed-46cd-b3f4-21a90c1e3bb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[("Hospedagens no período de: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{DATA_INICIAL})
+
+ + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{DATA_FINAL})).toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="16f853f0-04fa-46dc-be34-fcb28c81cf83"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA ENTRADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="ed819a2e-798f-4878-a0ea-97d1a71d99ba"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA SAIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="e263e7b1-c436-414b-8720-de3ae2742d62"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DIARIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="185" height="22" uuid="377d0a40-60ad-40ae-bb8f-4875b730ecd6"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_ENTRADA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="185" y="0" width="185" height="22" uuid="b951bf8e-ac0c-4c11-923c-d1658ae717e7"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_SAIDA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="370" y="0" width="185" height="22" uuid="7b5cbc6c-887a-488d-9145-4961283ab321"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_DIARIA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="72" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="50a26605-9497-4c45-b7fc-c944e4696d79"/>
+				<textElement textAlignment="Right">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="b1f9b75f-2e1e-44f7-8a63-1f980f812818"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="0" width="154" height="20" uuid="56d4e42b-ac33-410a-8404-13819dbc2b2b"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="370" y="0" width="185" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="9c081861-d63d-4f49-8ff5-d530454f6046"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{VALOR_DIARIA_3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="370" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="6cce31b3-19bd-4fbf-a9f8-091b9856509b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GERAL:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hospedagem_detalhada" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de9f247c-20e7-4e94-9d60-4d7046b164ab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{SUBREPORT_DIR}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ID_HOSPEDAGEM" class="java.lang.Long"/>
+	<parameter name="TOTAL_DIARIAS" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TOTAL_GERAL" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_URL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from hospedagem h left join hospedagem_cliente hc on h.id = hc.id_hospedagem left join cliente c on c.id=hc.id_cliente  where h.id=$P{ID_HOSPEDAGEM};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_ENTRADA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_SAIDA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VALOR_DIARIA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_CLIENTE" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_HOSPEDAGEM" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMPRESA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BAIRRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CIDADE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOGRADOURO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE_CELULAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE_FIXO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="451">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#CC0000" uuid="64477cf4-79a3-46b0-a055-32dd1782d754"/>
+				<textField>
+					<reportElement x="359" y="31" width="215" height="15" forecolor="#FFFFFF" uuid="66283e9f-2a3e-434a-b706-8cfdf2c9ed85"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Banabuiú - CE, CEP 63960-000"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="48" width="215" height="14" forecolor="#FFFFFF" uuid="7509da84-01b2-46f6-bec3-673f774344d0"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Fixo: (88) 3426-1728"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="63" width="215" height="16" forecolor="#FFFFFF" uuid="58305cb4-5cca-470f-85e6-50f3b39df8ac"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["E-mail: contato@bacanahotel.com"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="15" width="215" height="15" forecolor="#FFFFFF" uuid="d0863e12-4dcf-4788-9c35-fb1ac09eb428"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Rua Juscelino Kubitschek 151, Centro"]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="21" y="9" width="166" height="77" uuid="7d90ced1-0ce1-4aa1-9283-c79c68161835"/>
+					<imageExpression><![CDATA[$P{LOGO_URL}]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="1" y="72" width="555" height="51" uuid="7ac01179-8d28-4c75-9add-40b258d42129"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Roboto" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalhes da Hospedagem]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="54" y="210" width="246" height="20" uuid="f120b9aa-7554-4211-aeb6-ad4152a56000"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CNPJ}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="55" y="147" width="245" height="20" uuid="bf6db6fc-8c64-4b74-aee9-0c6890cbb5cb"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="55" y="168" width="245" height="20" uuid="e4df8ce0-f752-471e-9718-4ebf7fa8952d"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="55" y="189" width="245" height="20" uuid="beccdb7f-2503-420f-adfb-bf13c89e5c0e"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMPRESA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="147" width="55" height="20" uuid="f499a833-e16e-4bde-993b-6090fdfd0974"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="123" width="256" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="86559de4-84a6-4cf7-bec6-219eeff78a0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados do Hóspede:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="168" width="55" height="20" uuid="82941be6-dbcc-4fc1-b286-32d55a4561b4"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="147" width="80" height="20" uuid="ab58267f-fa64-4c61-b35d-c5bb715af3dc"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Logradouro:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="380" y="147" width="175" height="20" uuid="6306dda7-09b1-47a0-b725-cfa6c867eedc"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOGRADOURO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="323" y="168" width="57" height="19" uuid="cdb7e6ca-8877-4571-982a-f78e69e10967"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="167" width="23" height="20" uuid="dc591272-f0f2-4ea7-84a6-d414c39f24e8"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="168" width="44" height="19" uuid="9a8a94e2-8261-42a0-95f3-a4ae777ff433"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="425" y="168" width="130" height="19" uuid="0668a5ab-41f1-4822-a0eb-76b64bb96bb2"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BAIRRO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="187" width="47" height="20" uuid="b5345e63-6145-41d6-819f-1058261930bf"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="347" y="187" width="150" height="20" uuid="65e6cdbf-35a9-4280-891f-786dc5c6f946"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CIDADE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="520" y="188" width="34" height="19" uuid="b3b600e7-5cf4-43ab-adcf-e0bd51964b74"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="497" y="188" width="23" height="19" uuid="0d0c1b79-4131-47a9-aaa4-f258e5a11767"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="210" width="30" height="19" uuid="c8d133f7-e2c3-4958-babc-833da038fc4c"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="330" y="210" width="80" height="19" uuid="5a3a8cdf-d455-4256-8496-bd7501150172"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CEP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="233" width="33" height="20" uuid="327dc36c-27e0-4745-a844-14f78422faea"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fixo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="333" y="233" width="121" height="20" uuid="199c236e-63bf-4b03-b20e-8c2098c75c56"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TELEFONE_FIXO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="254" width="49" height="20" uuid="e7b1c31b-7923-417d-ba5e-bb939431293c"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="350" y="254" width="119" height="20" uuid="2b24804c-ab48-4f2b-95d3-13706e9fdd3f"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TELEFONE_CELULAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="274" width="46" height="20" uuid="99a39630-2872-477c-8750-eecc95b31794"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="347" y="274" width="201" height="20" uuid="d2dc946f-9615-494e-9cd9-b0b925b025e9"/>
+				<textElement>
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="123" width="255" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="3c05a50a-f5fc-449f-99bd-b8a74cca6b25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informações de Contato:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="2" y="362" width="150" height="20" uuid="efea5d33-076a-4718-a6bf-b2384669a724"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_ENTRADA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="152" y="362" width="150" height="20" uuid="69d90c8d-6cd3-49cb-893c-4dc451822096"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_SAIDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="2" y="414" width="150" height="20" uuid="ad6011b7-44c2-4f71-951c-969f0dd72b7d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_DIARIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="342" width="150" height="20" uuid="b980e840-ae26-486d-af0d-148d7b53ffc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Entrada:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="342" width="150" height="20" uuid="4466ec56-6ac7-41fd-a2aa-9a60496d195d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Saída:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="394" width="150" height="20" uuid="2f3269dd-acb8-4441-aed9-f2262fff8cfd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Diária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="394" width="150" height="20" uuid="368551b5-c855-498f-95fe-f4baf0dc0e83"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total das Diárias:]]></text>
+			</staticText>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="152" y="414" width="150" height="20" uuid="2285aed9-c81d-45e4-ba7f-d26ac246bce6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TOTAL_DIARIAS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="305" width="554" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="926abd17-33a6-404f-b7d7-932ab8d137a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outras Informações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="351" y="394" width="151" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="96e64f29-6745-47cc-861f-8087ae15a63a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral:]]></text>
+			</staticText>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="351" y="414" width="151" height="20" uuid="5fb937ed-18ce-435c-9031-eb73a57df3d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TOTAL_GERAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="42">
+			<staticText>
+				<reportElement x="-1" y="-263" width="56" height="20" uuid="a79512c5-7d12-4c27-a53d-2d1b542d5efe"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="-242" width="55" height="20" uuid="f51ca486-e0bf-40f3-b786-9a54e07d078b"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="1" y="0" width="554" height="39" uuid="48a4e422-ce86-4d49-97f9-af9d16a06d97"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ID_HOSPEDAGEM">
+					<subreportParameterExpression><![CDATA[$P{ID_HOSPEDAGEM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="2" width="137" height="13" uuid="1f9ad547-8b9a-4fdd-a7b0-cbb5197882fa"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="2" width="80" height="20" uuid="e056b585-5a72-480b-a410-bbca143d40b1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="2" width="40" height="20" uuid="90758806-c04a-4aca-a855-3580851d45f0"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

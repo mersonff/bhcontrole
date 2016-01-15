@@ -1,0 +1,541 @@
+html{
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.icones-home-reservas li{
+	list-style: none;
+}
+
+.tudo {
+	min-height: 100%;
+	position: relative;
+}
+
+.topo {
+	padding-bottom: 120px;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.conteudo h3{
+	margin: 0;
+	padding-bottom: 20px;
+}
+
+.conteudo {
+	padding-bottom: 90px;
+}
+
+.rodape {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 90px;
+	background:#6cf;
+}
+
+.home-apartamento-hover .thumbnail {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+.home-apartamento-hover:hover .thumbnail {
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
+	font-weight: 1000;
+}
+
+.thumbnail {
+	border: none;
+}
+
+.thumbnail a{
+	text-decoration: none;
+}
+
+.thumbnail i {
+	font-size: 40px;
+}
+
+.thumbnail p {
+	font-size: 10px;
+}
+
+.home-apartamento-numero {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.table-home thead tr th{
+	text-align: center;
+}
+
+.table-home tbody tr td b{
+	font-size: 12px;
+	font-weight: normal;
+}
+
+/* .table-hospedagem {
+	padding-bottom: 32px;
+}
+
+.table-clientes {
+	padding-bottom: 20px;
+}
+
+.table-reservas {
+	padding-bottom: 20px;
+}
+
+.table-usuarios {
+	padding-bottom: 20px;
+}
+
+#tabelas {
+	padding-bottom: 10px;
+} */
+
+label {
+	font-size: 15px;
+}
+
+.btn {
+	margin-top: 5px;
+}
+
+.gi-2x {
+	font-size: 2em;
+}
+
+.gi-3x {
+	font-size: 3em;
+}
+
+.gi-4x {
+	font-size: 4em;
+}
+
+.gi-5x {
+	font-size: 5em;
+}
+
+.disponivel {
+	font-weight: bold !important;
+	color: #b6edb6 !important;
+	text-transform: uppercase;
+}
+
+.ocupado {
+	font-weight: bold !important;
+	color: #f59792 !important;
+	text-transform: uppercase;
+}
+
+.sujo {
+	font-weight: bold !important;
+	color: #fed68a !important;
+	text-transform: uppercase;
+}
+
+form .warning {
+	color: #FF9800;
+}
+
+form .exceeded {
+	color: #bc0000;
+}
+
+h3.titulo {
+	text-align: center;
+}
+
+#tabelas th {
+	font-size: 1em;
+	text-align: center;
+}
+
+#tabelas td {
+	font-size: 1em;
+	text-align: center;
+}
+
+#tabelasDespesa th {
+	font-size: 1em;
+	text-align: center;
+}
+
+#tabelasDespesa td {
+	font-size: 1em;
+	text-align: center;
+}
+
+.erro {
+	color: red;
+}
+
+.botoes {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.detalhes p {
+	font-size: 1.5em;
+}
+
+span.tab {
+	padding-left: 2em;
+}
+
+.cabecalho-painel {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.navbar-brand {
+	padding: 0px;
+}
+
+.navbar-brand img {
+	vertical-align: top;
+	padding-top: 10px;
+	padding-left: 10px;
+	display: inline-block;
+}
+
+.navbar-brand-text {
+	padding-top: 22px;
+	padding-left: 5px;
+	display: inline-block;
+	font-size: 0.6em;
+	font-weight: bold;
+	line-height: 1.57em;
+}
+
+.container h3 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+input:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+input:focus:-moz-placeholder {
+	color: transparent;
+} /* FF 4-18 */
+input:focus::-moz-placeholder {
+	color: transparent;
+} /* FF 19+ */
+input:focus:-ms-input-placeholder {
+	color: transparent;
+} /* IE 10+ */
+
+h1, h2 {
+	font-size: 38px;
+	font-weight: 100;
+	color: #555;
+	line-height: 50px;
+}
+
+h3 {
+	font-size: 22px;
+	font-weight: 300;
+	color: #555;
+	line-height: 30px;
+}
+
+.img-logo {
+	margin: 0 auto;
+}
+
+.inner-bg {
+	padding: 50px 0 170px 0;
+}
+
+.top-content .text {
+	color: #515151;
+	text-align: center;
+}
+
+.top-content .text h1 {
+	color: #515151;
+}
+
+.top-content .description {
+	margin: 20px 0 10px 0;
+}
+
+.top-content .description p {
+	opacity: 0.8;
+}
+
+.top-content .description a {
+	color: #515151;
+}
+
+.top-content .description a:hover, .top-content .description a:focus {
+	border-bottom: 1px dotted #fff;
+}
+
+.form-box {
+	margin-top: 35px;
+}
+
+.form-top {
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	background: #e0e0e0;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	text-align: left;
+}
+
+.form-top-left {
+	float: left;
+	width: 75%;
+	padding-top: 25px;
+}
+
+.form-top-left h3 {
+	margin-top: 0;
+	color: #515151;
+}
+
+.form-top-left p {
+	opacity: 0.8;
+	color: #515151;
+}
+
+.form-top-right {
+	float: left;
+	width: 25%;
+	padding-top: 5px;
+	font-size: 66px;
+	color: #515151;
+	line-height: 100px;
+	text-align: right;
+	opacity: 0.3;
+}
+
+.form-bottom {
+	padding: 25px 25px 30px 25px;
+	background: #f4f4f4;
+	-moz-border-radius: 0 0 4px 4px;
+	-webkit-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
+	text-align: left;
+}
+
+.legenda-estados {
+	float: right;
+	margin-top: 5px;
+	margin-bottom: 30px;
+}
+
+ul.verticalRadios {
+	list-style-type: none;
+}
+
+.botao-adiciona {
+	float: left;
+}
+
+.legenda-estados b {
+	padding: 5px;
+}
+
+#despesaForm {
+	margin-top: 20px;
+}
+
+footer {
+	background: #333;
+	color: #fff;
+	padding: 30px 0 20px 0;
+}
+
+footer li {
+	float: left;
+	padding: 0 10px 0 10px;
+	list-style: none;
+}
+
+footer a {
+	color: #fff;
+}
+
+footer p {
+	float: right;
+}
+
+#tabelas_filter b {
+	font-weight: normal;
+}
+
+@media ( min-width : 992px) and (max-width: 1199px) {
+	h3.titulo {
+		padding-top: 80px;
+	}
+	.thumbnail a i {
+		font-size: 40px;
+	}
+	.thumbnail {
+		font-size: 9px;
+	}
+	
+}
+
+@media ( min-width : 768px) and (max-width: 991px) {
+	h3.titulo {
+		padding-top: 120px;
+	}
+	.thumbnail a i {
+		font-size: 50px;
+	}
+	
+	.thumbnail p {
+		font-size: 20px;
+	}
+	
+	.thumbnail span {
+		display: none;
+	}
+}
+
+@media ( max-width : 767px) {
+	.inner-bg {
+		padding: 60px 0 110px 0;
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+		color: #f7a29b;
+	}
+	.panel-body {
+		font-size: 8px;
+	}
+	h3.titulo {
+		font-size: 20px;
+	}
+	.cabecalho-painel {
+		font-size: 12px;
+	}
+	label {
+		font-size: 12px;
+	}
+	.row {
+		margin: 0 5px 0 5px;
+	}
+	
+	.thumbnail a i{
+		font-size: 30px;
+	}
+	
+	.thumbnail p{
+		font-size: 20px;
+	}
+	
+	.thumbnail span {
+		display: none;
+	}
+	
+	footer ul li {
+		height: 100%;
+		width: 20%;
+		display: inline;
+		padding: 0 10px 0 0;
+		margin: 0 auto;
+		font-size: 15px;
+	}
+	
+	footer p {
+		float: none;
+		text-align: center;
+		font-size: 15px;
+		padding-top: 5px;
+	}
+	
+	.navbar-brand-text{
+		font-size: 12px;
+	}
+}
+
+@media ( max-width : 415px) {
+	h1, h2 {
+		font-size: 32px;
+	}
+	
+	.legenda-estados p {
+		float: none;
+		text-align: center;
+		margin-bottom: 0px;
+	}
+	
+	.legenda-estados {
+		float: none;
+		margin-top: 5px;
+	}
+	.botao-adiciona {
+		float: none;
+		margin: 0 auto 0 auto;
+		text-align: center;
+		margin-bottom: 30px;
+	}
+	footer ul li {
+		font-size: 10px;
+	}
+	
+	footer p {
+		float: none;
+		text-align: center;
+		font-size: 10px;
+		padding-top: 5px;
+	}
+	
+	#tabelas {
+		font-size: 10px;
+	}
+	#tabelas label, p, b {
+		font-size: 10px;
+	}
+	#tabelas .btn {
+		font-size: 10px;
+	}
+	#tabelas_info, #tabelas_paginate {
+		font-size: 10px;
+	}
+	#tabelas_filter b {
+		font-size: 10px;
+		font-weight: normal;
+	}
+	#tabelas_filter {
+		float: none;
+		text-align: center;
+	}
+	.btn {
+		font-size: 9.5px;
+	}
+	h2 {
+		font-size: 20px;
+	}
+	.thumbnail a i {
+		font-size: 30px;
+	}
+	.thumbnail p {
+		font-size: 20px;
+	}
+	.thumbnail p span {
+		display: none;
+	}
+}

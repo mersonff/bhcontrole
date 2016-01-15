@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cliente_hospedagem_periodo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9522633a-2a9f-4692-8af5-965f862b5c11">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="94"/>
+	<parameter name="ID_CLIENTE" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_INICIAL" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_FINAL" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_URL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from cliente c left join hospedagem_cliente hc on c.id = hc.id_cliente left join hospedagem h on hc.id_hospedagem = h.id where c.id = $P{ID_CLIENTE} and h.data_entrada between $P{DATA_INICIAL} and $P{DATA_FINAL};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNPJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMPRESA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BAIRRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CIDADE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOGRADOURO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE_CELULAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONE_FIXO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_CLIENTE" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_HOSPEDAGEM" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_ENTRADA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_SAIDA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VALOR_DIARIA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="QNT_DIARIAS" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{DATA_SAIDA}.getDate()-$F{DATA_ENTRADA}.getDate()]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{VALOR_DIARIA}.multiply(new java.math.BigDecimal(($V{QNT_DIARIAS})))]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MES" class="java.math.BigDecimal" resetType="Group" resetGroup="DataEntrada" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_RELATORIO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
+	<group name="DataEntrada">
+		<groupExpression><![CDATA[$F{DATA_ENTRADA}.getMonth()]]></groupExpression>
+		<groupFooter>
+			<band height="21">
+				<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="426" y="1" width="129" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="02818ba6-4aee-4905-bf3e-d3f30967e9f9"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOTAL_MES}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="1" y="1" width="425" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="800042bc-038d-4dbc-b3c4-edc168308211"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("MM/yyyy").format($F{DATA_ENTRADA})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="309" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#CC0000" uuid="fdef133d-cc7d-4031-af1d-2f0fd907d8b5"/>
+				<textField>
+					<reportElement x="359" y="31" width="215" height="15" forecolor="#FFFFFF" uuid="301695d6-5d7b-4989-94e7-d807eac8cd70"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Banabuiú - CE, CEP 63960-000"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="48" width="215" height="14" forecolor="#FFFFFF" uuid="8d29aa48-ef63-4fb7-8cd0-a6bf9d9d4cbc"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Fixo: (88) 3426-1728"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="63" width="215" height="16" forecolor="#FFFFFF" uuid="20b34ddb-0e9d-413a-bf05-44ec36c94faa"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["E-mail: contato@bacanahotel.com"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="359" y="15" width="215" height="15" forecolor="#FFFFFF" uuid="9af8c319-f5cb-48c8-97f7-80409d077037"/>
+					<textElement markup="none">
+						<font fontName="Roboto" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Rua Juscelino Kubitschek 151, Centro"]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="21" y="9" width="166" height="77" uuid="9a165d57-fc94-46ae-b1ec-1dd8c29f4831"/>
+					<imageExpression><![CDATA[$P{LOGO_URL}]]></imageExpression>
+				</image>
+			</frame>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="72" width="553" height="61" uuid="ee8699b8-5e24-4e53-8b84-2118def3f54e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[("Hospedagens no período de: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{DATA_INICIAL})
+
+ + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{DATA_FINAL})).toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="284" width="46" height="20" uuid="cc156266-9948-492a-82ff-26302303dc52"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="351" y="264" width="119" height="20" uuid="7675aaa4-c587-4ac5-a9ec-f2821418e11b"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TELEFONE_CELULAR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="178" width="55" height="20" uuid="4761680d-7027-452f-b0d2-1016b4ef834b"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="157" width="55" height="20" uuid="03e31789-df14-43cf-9f41-eb8e39b2e242"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="178" width="44" height="19" uuid="fc99a261-7b3e-4bc7-910e-5964a49210e9"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="56" y="157" width="245" height="20" uuid="4ddcb14a-8bb8-4370-8997-d0720ddc4b5c"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="56" y="178" width="245" height="20" uuid="a0255032-7247-45bb-9329-61bc43f53945"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="157" width="80" height="20" uuid="938ced4f-4872-4fdc-bc28-e3613a36ba46"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Logradouro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="243" width="33" height="20" uuid="d28b4bce-f840-4fb8-bc43-245e0062b891"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fixo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="498" y="198" width="23" height="19" uuid="9a6484e9-df9e-4da7-91ae-c0f28a34b0bc"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="381" y="157" width="175" height="20" uuid="3ad35574-86da-41fa-a80f-e76dd5b4b1db"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOGRADOURO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="56" y="199" width="245" height="20" uuid="eec03a54-94c7-4908-bd6b-2d03b29fa3ab"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMPRESA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="426" y="178" width="130" height="19" uuid="5383e338-fe76-4512-a22f-67a29f603cc3"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BAIRRO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="521" y="198" width="34" height="19" uuid="b176ce9b-d32f-49fa-8dd1-e35ca60111fa"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="348" y="197" width="150" height="20" uuid="b336d7c5-b55a-4cb9-b7c4-b9965f0c68a7"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CIDADE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="178" width="57" height="19" uuid="c0aef046-714e-46f9-b422-875eb870d847"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="334" y="243" width="121" height="20" uuid="527db863-a3ef-4399-9739-02ebe27fd6f3"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TELEFONE_FIXO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="348" y="284" width="201" height="20" uuid="21f5ebcb-a8a0-4a2b-a3ec-15dd85fa49e5"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="301" y="133" width="255" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="472ab1fe-aa25-4332-94cf-fa00e0b8b6a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informações de Contato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="220" width="30" height="19" uuid="4c50776e-b26e-4f15-8bbe-889d27bf3176"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="220" width="246" height="20" uuid="7016cd02-629b-408f-ada3-6c6ea898fada"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CNPJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="220" width="55" height="20" uuid="4607bcd0-d3cd-42d7-a5bd-cd32267a8560"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="264" width="49" height="20" uuid="7c32c74b-d0a0-4c3e-a25c-ba244ac99168"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="331" y="220" width="80" height="19" uuid="1e8f0b86-3f40-4684-8b5e-dff66b4260c6"/>
+				<textElement markup="none">
+					<font fontName="Roboto" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CEP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="133" width="256" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="366e89a7-246b-47b1-a1ec-627cf629512e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados do Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="197" width="47" height="20" uuid="6ed03e39-b91f-47c9-9757-b261e0507163"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="177" width="23" height="20" uuid="87426c11-e6cc-42f3-9b44-b289c190041d"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="199" width="56" height="20" uuid="b87ae5bc-c59e-468f-a534-1869e565bb78"/>
+				<textElement>
+					<font fontName="Roboto" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="1" width="119" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="5b7e2c5b-a2f0-4e9c-ab02-3f78cc0a01d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA ENTRADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="1" width="119" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="ae92f069-9b98-44e0-bed0-c42023579062"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA SAIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="239" y="1" width="87" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="475381f7-6b2c-43e3-b315-234ae4b014bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DIARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="326" y="1" width="100" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="27a6f9cf-a9c2-4c9d-88e6-774f37217669"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIÁRIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="426" y="1" width="129" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="33f6f8a1-5b90-4f86-ba07-06d5a0a87a60"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="239" y="0" width="87" height="20" uuid="7966ce28-622a-4c9b-916c-a715103dc608"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALOR_DIARIA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="119" height="20" uuid="fec12403-da54-46c5-b0de-9205013ea965"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_ENTRADA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="120" y="0" width="119" height="20" uuid="ef9aea5c-3fe9-4914-a4a0-9aec1eaf00a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_SAIDA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="100" height="20" uuid="1fc969b5-b674-45d5-afc0-f02a5068c1e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{QNT_DIARIAS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="426" y="1" width="129" height="20" uuid="0bdbe908-ca09-42df-a9b3-4baa272bbcf5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="48" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="1" y="0" width="166" height="20" uuid="65095d96-c33e-4057-bdac-9379288c5f70"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="83" height="20" uuid="658b402f-eaf6-4c60-8779-e721c4774eef"/>
+				<textElement textAlignment="Right">
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="0" width="44" height="20" uuid="db32104e-4e18-44dc-88a2-ce15d0611e5d"/>
+				<textElement>
+					<font fontName="Roboto"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22">
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="426" y="0" width="129" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="12e4b804-36a4-4818-b37a-893f3991d20e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_RELATORIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="425" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="a402b66b-fe13-4c4b-bae6-20a8e4610072"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL GERAL:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
