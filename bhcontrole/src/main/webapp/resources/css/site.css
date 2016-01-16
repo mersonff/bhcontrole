@@ -57,7 +57,6 @@ body {
 }
 
 .thumbnail {
-	border: none;
 }
 
 .thumbnail a{
@@ -69,7 +68,7 @@ body {
 }
 
 .thumbnail p {
-	font-size: 10px;
+	font-size: 9px;
 }
 
 .home-apartamento-numero {
