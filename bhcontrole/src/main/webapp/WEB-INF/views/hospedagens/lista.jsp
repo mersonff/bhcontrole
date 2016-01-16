@@ -45,12 +45,11 @@
 				<thead>
 					<tr>
 						<th>#ID</th>
-						<th><spring:message code="nome.label"/> </th>
+						<th><spring:message code="cliente1.label"/> </th>
 						<th><spring:message code="AP"/> </th>
 						<th><spring:message code="dataEntrada.label"/> </th>
 						<th><spring:message code="dataSaida.label"/> </th>
-						<th><spring:message code="valorDiaria.label"/> </th>
-						<th><spring:message code="totalDiarias.label"/></th>
+						<th><spring:message code="valorDiaria.label"/>s </th>
 						<th><spring:message code="despesas.label"/></th>
 						<th><spring:message code="total.label"/></th>
 						<th><spring:message code="acoes.label"/> </th>
@@ -62,21 +61,20 @@
 							<td>${hospedagem.id}</td>
 							<td>${hospedagem.cliente.nome}</td>
 							<td>${hospedagem.apartamento.numero}</td>
-							<td><fmt:formatDate value="${hospedagem.dataEntrada.time}" pattern="dd/MM/yyyy"/></td>
+							<td><fmt:formatDate value="${hospedagem.dataEntrada.time}" pattern="dd/MM/yyyy HH:mm"/></td>
 							<td>
 								<c:choose> 
 									<c:when test="${empty hospedagem.dataSaida}">
 										<spring:message code="legenda.emAberto"/>  
 									</c:when>
 									<c:otherwise>
-										<fmt:formatDate value="${hospedagem.dataSaida.time}" pattern="dd/MM/yyyy"/>
+										<fmt:formatDate value="${hospedagem.dataSaida.time}" pattern="dd/MM/yyyy HH:mm"/>
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td>R$ ${hospedagem.valorDiaria}</td>
-							<td>R$ ${hospedagem.calculaTotalDiarias()}</td>
-							<td>R$ ${hospedagem.somaDespesas()}</td>
-							<td>R$ ${hospedagem.calculaTotal()}</td>
+							<td><b>${hospedagem.calculaDiarias()}</b> x R$ ${hospedagem.valorDiaria}</td>
+							<td><b>R$ ${hospedagem.somaDespesas()}</b></td>
+							<td><b>R$ ${hospedagem.calculaTotal()}</b></td>
 							<td>
 								<c:if test="${hospedagem.dataSaida == null}">
 									<a title="${checkoutHospedagemAlt}" href="${spring:mvcUrl('HC#checkout').arg(0,hospedagem.id).build()}"

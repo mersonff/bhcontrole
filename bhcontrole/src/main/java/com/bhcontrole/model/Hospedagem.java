@@ -1,6 +1,9 @@
 package com.bhcontrole.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -128,29 +131,55 @@ public class Hospedagem {
 	public void setDespesas(List<Despesa> despesas) {
 		this.despesas = despesas;
 	}
-	
+
 	public double calculaDiarias() {
 		double diarias;
+		int tempoDia = 1000 * 60 * 60 * 24;
 		Calendar dataHoje = Calendar.getInstance();
+		// LocalDate dataHoje = LocalDate.now();
+		// LocalDate dataEntrada =
+		// this.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 		if (this.dataSaida == null) {
-			double dt = (dataHoje.getTimeInMillis() - this.dataEntrada.getTimeInMillis()) + 3600000;
-			diarias = dt / 86400000L;
+			double dt = (dataHoje.getTimeInMillis() - this.dataEntrada.getTimeInMillis());
+			diarias = dt / tempoDia;
+			// Period periodo = Period.between(dataEntrada, dataHoje);
+			// diarias = periodo.getDays();
+			System.out.println("Diária " + diarias);
 
-			if (diarias == 0 || diarias < 1) {
+			if (diarias < 1) {
 				return 1;
 			}
 
-			if (Math.ceil(diarias) - diarias < 0.50) {
+			if (Math.ceil(diarias) - diarias > 0.01) {
+				System.out.println("TETO: " + Math.ceil(diarias)+"\n");
 				return Math.ceil(diarias);
 			}
-
+			System.out.println("CHAO: " + Math.floor(diarias)+"\n");
 			return Math.floor(diarias);
 		}
 
-		double dt = (this.dataSaida.getTimeInMillis() - this.dataEntrada.getTimeInMillis()) + 3600000;
-		diarias = dt / 86400000L;
-		return Math.ceil(diarias);
+		double dt = (this.dataSaida.getTimeInMillis() - this.dataEntrada.getTimeInMillis());
+		diarias = dt / tempoDia;
+		// LocalDate dataSaida =
+		// this.dataSaida.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		// Period periodo = Period.between(dataEntrada, dataSaida);
+		// diarias = periodo.getDays();
+		System.out.println("Diária " + diarias);
+
+		if (diarias < 1) {
+			return 1;
+		}
+
+		if (Math.ceil(diarias) - diarias > 0.01) {
+			System.out.println("TETO: " + Math.ceil(diarias)+"\n");
+			return Math.ceil(diarias);
+		}
+
+		
+		System.out.println("CHAO: " + Math.floor(diarias)+"\n");
+		return Math.floor(diarias);
+
 	}
 
 	public BigDecimal calculaTotalDiarias() {
