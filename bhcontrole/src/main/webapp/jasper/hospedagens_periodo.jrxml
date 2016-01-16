@@ -50,6 +50,22 @@ ORDER BY
 	<variable name="VALOR_DIARIA_3" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{VALOR_DIARIA}]]></variableExpression>
 	</variable>
+	<variable name="QNT_DIARIAS" class="java.lang.Double">
+		<variableExpression><![CDATA[Math.ceil(new Double($F{DATA_SAIDA}.getTime()-$F{DATA_ENTRADA}.getTime())/(1000 * 60 * 60 * 24))]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{VALOR_DIARIA}.multiply(new java.math.BigDecimal(($V{QNT_DIARIAS})))]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MES" class="java.math.BigDecimal" resetType="Group" resetGroup="DATA ENTRADA" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_RELATORIO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_CLIENTE" class="java.math.BigDecimal" resetType="Group" resetGroup="NOME" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOTAL}]]></variableExpression>
+	</variable>
 	<group name="NOME">
 		<groupExpression><![CDATA[$F{NOME}]]></groupExpression>
 		<groupHeader>
@@ -64,14 +80,7 @@ ORDER BY
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="21">
-				<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="370" y="0" width="185" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="7fb24d4e-edcc-4392-b14a-84f84937ca7c"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Roboto" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{VALOR_DIARIA_1}]]></textFieldExpression>
-				</textField>
+			<band height="43">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="370" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="66e3ab9c-9567-4880-b521-13295ffcf295"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
@@ -79,6 +88,13 @@ ORDER BY
 					</textElement>
 					<text><![CDATA[TOTAL:]]></text>
 				</staticText>
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="370" y="0" width="184" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="bf3fae7f-11ce-4f0a-b6dd-a1d2a8248067"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOTAL_CLIENTE}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -86,19 +102,19 @@ ORDER BY
 		<groupExpression><![CDATA[$F{DATA_ENTRADA}.getMonth()]]></groupExpression>
 		<groupFooter>
 			<band height="22">
-				<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
-					<reportElement mode="Opaque" x="370" y="0" width="185" height="22" forecolor="#FFFFFF" backcolor="#CC0000" uuid="62a607de-27bc-4d34-b879-5d0ac90cba45"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Roboto" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{VALOR_DIARIA_2}]]></textFieldExpression>
-				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement mode="Opaque" x="0" y="0" width="370" height="22" forecolor="#FFFFFF" backcolor="#CC0000" uuid="71c9bd57-e2ce-44c8-810d-234c4184168d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Roboto" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("MM/yyyy").format($F{DATA_ENTRADA})]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="370" y="0" width="184" height="22" forecolor="#FFFFFF" backcolor="#CC0000" uuid="4a91fc5b-e6b5-4a20-aedc-84a2ba1bc5ab"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Roboto" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TOTAL_MES}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -157,7 +173,7 @@ ORDER BY
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="16f853f0-04fa-46dc-be34-fcb28c81cf83"/>
+				<reportElement mode="Opaque" x="0" y="0" width="119" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="16f853f0-04fa-46dc-be34-fcb28c81cf83"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -168,7 +184,7 @@ ORDER BY
 				<text><![CDATA[DATA ENTRADA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="ed819a2e-798f-4878-a0ea-97d1a71d99ba"/>
+				<reportElement mode="Opaque" x="119" y="1" width="122" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="ed819a2e-798f-4878-a0ea-97d1a71d99ba"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
@@ -179,7 +195,7 @@ ORDER BY
 				<text><![CDATA[DATA SAIDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="e263e7b1-c436-414b-8720-de3ae2742d62"/>
+				<reportElement mode="Opaque" x="241" y="1" width="97" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="e263e7b1-c436-414b-8720-de3ae2742d62"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 				</box>
@@ -188,12 +204,32 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[VALOR DIARIA]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="339" y="1" width="96" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="8105fc82-b4c7-4578-a4b3-693cc4b830dc"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIÁRIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="435" y="1" width="120" height="20" forecolor="#FFFFFF" backcolor="#CC0000" uuid="c5ba58e6-78cc-4f47-b31b-cabd47fe5319"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIÁRIAS]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="22" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="185" height="22" uuid="377d0a40-60ad-40ae-bb8f-4875b730ecd6"/>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="119" height="22" uuid="377d0a40-60ad-40ae-bb8f-4875b730ecd6"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.5"/>
@@ -202,12 +238,12 @@ ORDER BY
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto" isBold="true"/>
+					<font fontName="Roboto" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA_ENTRADA}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="185" y="0" width="185" height="22" uuid="b951bf8e-ac0c-4c11-923c-d1658ae717e7"/>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement x="119" y="0" width="122" height="22" uuid="b951bf8e-ac0c-4c11-923c-d1658ae717e7"/>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.5"/>
@@ -216,21 +252,46 @@ ORDER BY
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto" isBold="true"/>
+					<font fontName="Roboto" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA_SAIDA}]]></textFieldExpression>
 			</textField>
 			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
-				<reportElement x="370" y="0" width="185" height="22" uuid="7b5cbc6c-887a-488d-9145-4961283ab321"/>
+				<reportElement x="241" y="0" width="97" height="22" uuid="7b5cbc6c-887a-488d-9145-4961283ab321"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto" isBold="true"/>
+					<font fontName="Roboto" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VALOR_DIARIA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="338" y="0" width="97" height="22" uuid="0417164e-c5cb-4b41-9463-771fd6542a36"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{QNT_DIARIAS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="435" y="0" width="119" height="22" uuid="f0bd10e7-f4c0-4e40-843f-2f863ee6e383"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -261,13 +322,6 @@ ORDER BY
 	</pageFooter>
 	<summary>
 		<band height="21" splitType="Stretch">
-			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="370" y="0" width="185" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="9c081861-d63d-4f49-8ff5-d530454f6046"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{VALOR_DIARIA_3}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="370" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="6cce31b3-19bd-4fbf-a9f8-091b9856509b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
@@ -275,6 +329,13 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[TOTAL GERAL:]]></text>
 			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="370" y="0" width="184" height="21" forecolor="#FFFFFF" backcolor="#CC0000" uuid="3a582009-0eef-4f72-a6e2-55c49281df70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_RELATORIO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
