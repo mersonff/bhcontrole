@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bhcontrole.model.Cliente;
 import com.bhcontrole.model.Hospedagem;
+import com.bhcontrole.model.ValidaCPFeCNPJ;
 import com.bhcontrole.service.ClienteService;
 import com.bhcontrole.service.HospedagemService;
 
@@ -41,9 +42,17 @@ public class ClientesController {
 	public ModelAndView salvar(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result,
 			RedirectAttributes redirectAttributes, Locale locale) {
 		Cliente existe = clienteService.findByCpf(cliente.getCpf());
+		
+		if(!ValidaCPFeCNPJ.isCPF(cliente.getCpf())){
+			result.rejectValue("cpf", "cpf.invalido");
+		}
 
 		if (existe != null) {
 			result.rejectValue("cpf", "cliente.ja.existe");
+		}
+		
+		if(!cliente.getCnpj().isEmpty() && !ValidaCPFeCNPJ.isCNPJ(cliente.getCnpj())){
+			result.rejectValue("cnpj", "cnpj.invalido");
 		}
 		
 		if (result.hasErrors()) {
@@ -99,9 +108,17 @@ public class ClientesController {
 	public ModelAndView atualiza(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, 
 			RedirectAttributes redirectAttributes, Locale locale) {		
 		Cliente existe = clienteService.findByCpf(cliente.getCpf());
-
+		
 		if (existe != null && existe.getId() != cliente.getId()) {
 			result.rejectValue("cpf", "cliente.ja.existe");
+		}
+		
+		if(!ValidaCPFeCNPJ.isCPF(cliente.getCpf())){
+			result.rejectValue("cpf", "cpf.invalido");
+		}
+		
+		if(!cliente.getCnpj().isEmpty() && !ValidaCPFeCNPJ.isCNPJ(cliente.getCnpj())){
+			result.rejectValue("cnpj", "cnpj.invalido");
 		}
 		
 		if (result.hasErrors()) {

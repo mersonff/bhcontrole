@@ -41,7 +41,7 @@
 							<spring:bind path="nome">
 								<div class="form-group ${status.error ? 'has-error' : ''}">
 									<form:label path="nome" cssClass="col-sm-2 control-label">
-										<spring:message code="nome.label" />:
+										<spring:message code="cliente1.label" />:
 									</form:label>
 									<div class="col-sm-8">
 										<spring:message code="nome.placeholder" var="nomePlaceHolder" />

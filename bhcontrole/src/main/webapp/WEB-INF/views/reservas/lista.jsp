@@ -45,7 +45,7 @@
 				<thead>
 					<tr>
 						<th>#ID</th>
-						<th><spring:message code="nome.label"/> </th>
+						<th><spring:message code="cliente1.label"/> </th>
 						<th><spring:message code="dataSolicitacao.label"/> </th>
 						<th><spring:message code="dataEntrada.label"/> </th>
 						<th><spring:message code="celular.label"/> </th>

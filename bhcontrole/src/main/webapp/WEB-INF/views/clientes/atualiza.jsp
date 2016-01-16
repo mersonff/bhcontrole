@@ -76,15 +76,18 @@
 									</div>
 								</div>
 							</spring:bind>
-							<div class="form-group">
-								<form:label path="cnpj" cssClass="col-sm-2 control-label">
-									<spring:message code="cnpj.label" />:
-								</form:label>
-								<div class="col-sm-4">
-									<form:input path="cnpj" cssClass="form-control"
-										placeholder="##.###.###/####-##" />
+							<spring:bind path="cnpj">
+								<div class="form-group">
+									<form:label path="cnpj" cssClass="col-sm-2 control-label">
+										<spring:message code="cnpj.label" />:
+									</form:label>
+									<div class="col-sm-4">
+										<form:input path="cnpj" cssClass="form-control"
+											placeholder="##.###.###/####-##" />
+										<form:errors path="cnpj" cssClass="erro" />	
+									</div>
 								</div>
-							</div>
+							</spring:bind>
 						</div>
 					</div>
 				</div>

@@ -127,9 +127,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public MailSender mailSender() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 		javaMailSenderImpl.setHost(env.getProperty("mail.host"));
-		javaMailSenderImpl.setPassword(env.getProperty("mail.senha"));
+		javaMailSenderImpl.setPassword(env.getProperty("mail.password"));
 		javaMailSenderImpl.setPort(587);
-		javaMailSenderImpl.setUsername(env.getProperty("mail.usuario"));
+		javaMailSenderImpl.setUsername(env.getProperty("mail.login"));
 		Properties mailProperties = new Properties();
 		mailProperties.put("mail.smtp.auth", true);
 		mailProperties.put("mail.smtp.starttls.enable", true);

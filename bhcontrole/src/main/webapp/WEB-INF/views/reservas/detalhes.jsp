@@ -16,7 +16,7 @@
 						<spring:message code="dados.reserva"/>
 					</div>
 					<div class="panel-body">
-						<p><spring:message code="nome.label"/>: <b>${reserva.nome}</b></p>
+						<p><spring:message code="cliente1.label"/>: <b>${reserva.nome}</b></p>
 						<p><spring:message code="dataSolicitacao.label"/>: <b><fmt:formatDate value="${reserva.dataSolicitacao.time}" pattern="dd/MM/yyyy HH:mm:ss"/></b></p>
 						<p><spring:message code="dataEntrada.label"/>: <b><fmt:formatDate value="${reserva.dataEntrada.time}" pattern="dd/MM/yyyy HH:mm:ss"/></b></p>
 						<p><spring:message code="quantidadeDeQuartos.label"/>: <b>${reserva.quantidadeDeQuartos}</b></p>
