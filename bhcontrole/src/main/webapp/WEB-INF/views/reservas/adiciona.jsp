@@ -83,7 +83,7 @@
 										</form:label>
 										<div class="col-sm-2">
 											<spring:message code="quantidadeDeQuartos.placeholder" var="quantidadeDeQuartosPlaceHolder" />
-											<input type="number" id="quantidadeDeQuartos" name="quantidadeDeQuartos" value="${reserva.quantidadeDeQuartos}" class="form-control"
+											<input type="number" id="quantidadeDeQuartos" name="quantidadeDeQuartos" min="0" value="${reserva.quantidadeDeQuartos}" class="form-control"
 												placeholder=" "/>
 											<form:errors path="quantidadeDeQuartos" cssClass="erro" />
 										</div>
@@ -96,7 +96,7 @@
 										</form:label>
 										<div class="col-sm-2">
 											<spring:message code="quantidadeDeHospedes.placeholder" var="quantidadeDeHospedesPlaceHolder" />
-											<input type="number" id="quantidadeDeHospedes" name="quantidadeDeHospedes" value="${reserva.quantidadeDeHospedes}" class="form-control"
+											<input type="number" id="quantidadeDeHospedes" name="quantidadeDeHospedes" min="0" value="${reserva.quantidadeDeHospedes}" class="form-control"
 												placeholder=" "/>
 											<form:errors path="quantidadeDeHospedes" cssClass="erro" />
 										</div>
