@@ -121,6 +121,12 @@ public class UsuariosController {
 			return new ModelAndView("usuarios/atualiza").addObject("estados", Estado.values());
 		}
 		
+		String estado = null;
+		if(usuario.getEstado() != null){
+		 estado = existe.getEstado();
+		 usuario.setEstado(estado);
+		}
+		
 		usuarioService.update(usuario);
 		redirectAttributes.addFlashAttribute("success", messageSource.getMessage("usuario.atualizado.sucesso",
 				new String[] { usuario.getId().toString() }, locale));

@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <spring:message code="salvar.tooltip" var="salvarTooltip"/>
 <spring:message code="limpar.tooltip" var="limparTooltip"/>
@@ -24,11 +25,11 @@
 					<div class="alert alert-danger" role="alert">
 						<strong><spring:message code="erro.no.formulario" /></strong>			
 						<button type="button" class="close" aria-label="Close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-						<%-- <ul>
+						 <ul>
 								<c:forEach var="error" items="${errors.allErrors}">
 									<li>${error.field}: ${error.defaultMessage}</li>
 								</c:forEach>
-							</ul> --%>
+							</ul>
 					</div>
 				</spring:hasBindErrors>
 			
@@ -98,29 +99,34 @@
 									</div>
 								</div>
 							</spring:bind>
-							<spring:bind path="funcoes">
-								<div class="form-group ${status.error ? 'has-error' : ''}">
-									<form:label path="funcoes" cssClass="col-sm-2 control-label">
-										<spring:message code="funcoes.label" />:
-									</form:label>				
-									<div class="col-sm-4">
-										<form:select path="funcoes" items="${roles}" multiple="true" itemValue="id" itemLabel="tipo" class="form-control"/>
-										<form:errors path="funcoes" cssClass="erro" />						
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<spring:bind path="funcoes">
+									<div class="form-group ${status.error ? 'has-error' : ''}">
+										<form:label path="funcoes" cssClass="col-sm-2 control-label">
+											<spring:message code="funcoes.label" />:
+										</form:label>				
+										<div class="col-sm-4">
+											<form:select path="funcoes" items="${roles}" multiple="true" itemValue="id" itemLabel="tipo" class="form-control"/>
+											<form:errors path="funcoes" cssClass="erro" />						
+										</div>
 									</div>
-								</div>
-							</spring:bind>
-							<spring:bind path="estado">
-								<div class="form-group ${status.error ? 'has-error' : ''}">
-									<form:label path="estado" cssClass="col-sm-2 control-label">
-										<spring:message code="estado.label" />:
-									</form:label>
-									<div class="col-sm-3">
-										<form:select path="estado" cssClass="form-control">
-										    <form:options items="${estados}" itemValue="estado" itemLabel="estado"/>
-										</form:select>
+								</spring:bind>
+								<spring:bind path="estado">
+									<div class="form-group ${status.error ? 'has-error' : ''}">
+										<form:label path="estado" cssClass="col-sm-2 control-label">
+											<spring:message code="estado.label" />:
+										</form:label>
+										<div class="col-sm-3">
+											<form:select path="estado" cssClass="form-control">
+											    <form:options items="${estados}" itemValue="estado" itemLabel="estado"/>
+											</form:select>
+										</div>
 									</div>
-								</div>
-							</spring:bind>
+								</spring:bind>
+							</sec:authorize>
+							<c:forEach var="funcao" items="${usuario.funcoes}" varStatus="status">
+       							<input type="hidden" id="funcoes" name="funcoes" value="${funcao.id}" />
+    						</c:forEach>
 						</div>
 					</div>
 				</div>
